@@ -1,0 +1,119 @@
+[
+  {
+    "id": 1,
+    "question": "Which machine learning classifier algorithms are imported in cell 2 of the Titanic notebook?",
+    "expected": "RandomForestClassifier, GradientBoostingClassifier, VotingClassifier, LogisticRegression",
+    "raw_response": "The machine learning classifier algorithms imported in cell 2 of the Titanic notebook are:\n\n1. `RandomForestClassifier` from `sklearn.ensemble`\n2. `GradientBoostingClassifier` from `sklearn.ensemble`\n3. `VotingClassifier` from `sklearn.ensemble`\n4. `LogisticRegression` from `sklearn.linear_model`",
+    "raw_correct": true,
+    "preprocessed_response": "The machine learning classifier algorithms imported in cell 2 of the Titanic notebook are:\n\n1. RandomForestClassifier\n2. GradientBoostingClassifier\n3. VotingClassifier\n4. LogisticRegression",
+    "preprocessed_correct": true
+  },
+  {
+    "id": 2,
+    "question": "What feature engineering or data preprocessing operations are performed in cell 4 of the Titanic notebook?",
+    "expected": "Fills missing Age and Fare values with their respective medians, fills missing Embarked values with 'S', calculates FamilySize (SibSp + Parch + 1), creates IsAlone (1 if FamilySize is 1, else 0), extracts Title from Name using a regex, and groups rare titles into 'Rare', 'Miss', or 'Mrs'.",
+    "raw_response": "In cell 4 of the Titanic notebook, the following data preprocessing operations are performed:\n\n1. Missing values in the 'Age' and 'Fare' columns are filled with their respective medians.\n2. Missing values in the 'Embarked' column are filled with the most common port, 'S'.\n3. A new feature 'FamilySize' is created by combining the number of siblings/spouses ('SibSp') and parents/children ('Parch') with the person themselves.\n4. A new feature 'IsAlone' is created, set to 1 if the passenger is traveling alone (i.e., 'FamilySize' is 1), otherwise set to 0.\n5. A new feature 'Title' is extracted from the 'Name' column, capturing titles such as Mr, Mrs, Miss, etc.\n6. Rare titles are grouped into a single category labeled 'Rare'.\n7. Specific titles are standardized: 'Mlle' and 'Ms' are replaced with 'Miss', and 'Mme' is replaced with 'Mrs'.",
+    "raw_correct": true,
+    "preprocessed_response": "In cell 4 of the Titanic notebook, the following feature engineering and data preprocessing operations are performed:\n\n1. Missing values in the 'Age' and 'Fare' columns are filled with their respective medians.\n2. Missing values in the 'Embarked' column are filled with the most common port, 'S'.\n3. A new feature 'FamilySize' is created by combining the 'SibSp' and 'Parch' columns and adding 1 (to include the person themselves).\n4. A new feature 'IsAlone' is created, set to 1 if 'FamilySize' is 1 (indicating the person is traveling alone), otherwise set to 0.\n5. A new feature 'Title' is extracted from the 'Name' column, capturing titles such as Mr, Mrs, Miss, etc.\n6. Rare titles are grouped under a single category 'Rare', and some titles are standardized (e.g., 'Mlle' and 'Ms' are replaced with 'Miss', 'Mme' is replaced with 'Mrs').",
+    "preprocessed_correct": true
+  },
+  {
+    "id": 3,
+    "question": "What list of features is selected for modeling in cell 6 of the Titanic notebook?",
+    "expected": "['Pclass', 'Sex', 'Age', 'Fare', 'Embarked', 'Title', 'FamilySize', 'IsAlone']",
+    "raw_response": "The list of features selected for modeling in cell 6 of the Titanic notebook is:\n\n- \"Pclass\"\n- \"Sex\"\n- \"Age\"\n- \"Fare\"\n- \"Embarked\"\n- \"Title\"\n- \"FamilySize\"\n- \"IsAlone\"",
+    "raw_correct": true,
+    "preprocessed_response": "The list of features selected for modeling in cell 6 of the Titanic notebook is:\n\n- \"Pclass\"\n- \"Sex\"\n- \"Age\"\n- \"Fare\"\n- \"Embarked\"\n- \"Title\"\n- \"FamilySize\"\n- \"IsAlone\"",
+    "preprocessed_correct": true
+  },
+  {
+    "id": 4,
+    "question": "What is the cross-validation Ensemble Accuracy and Consistency (Standard Deviation) reported in cell 82 of the Titanic notebook?",
+    "expected": "Ensemble Accuracy: 83.16%, Consistency (Std Dev): 0.0189",
+    "raw_response": "The cross-validation Ensemble Accuracy reported in cell 82 is 83.16%, and the Consistency (Standard Deviation) is 0.0189.",
+    "raw_correct": true,
+    "preprocessed_response": "The cross-validation Ensemble Accuracy reported in cell 82 is 83.16%, and the Consistency (Standard Deviation) is 0.0189.",
+    "preprocessed_correct": true
+  },
+  {
+    "id": 5,
+    "question": "What traceback or error output is visible in the unexecuted PyCaret cell at the end of the Titanic notebook?",
+    "expected": "ModuleNotFoundError: No module named 'pycaret'",
+    "raw_response": "The traceback or error output visible in the unexecuted PyCaret cell at the end of the Titanic notebook is:\n\n```\nModuleNotFoundError                       Traceback (most recent call last)\nCell In[2], line 1\n----> 1 from pycaret.classification import *\nModuleNotFoundError: No module named 'pycaret'\n```",
+    "raw_correct": true,
+    "preprocessed_response": "The traceback or error output visible in the unexecuted PyCaret cell at the end of the Titanic notebook is:\n\n```\nModuleNotFoundError: No module named 'pycaret'\n\n---------------------------------------------------------------------------\nModuleNotFoundError                       Traceback (most recent call last)\nCell In[2], line 1\n----> 1 from pycaret.classification import *\n\nModuleNotFoundError: No module named 'pycaret'\n```",
+    "preprocessed_correct": true
+  },
+  {
+    "id": 6,
+    "question": "What is the exact layer-by-layer structure of the neural network model defined in cell 10 of the Dropout notebook?",
+    "expected": "A keras.Sequential model containing: a Dense layer with 60 units, relu activation, and input shape of (60,); a Dropout layer with 0.2 rate; a Dense layer with 30 units and relu activation; another Dropout layer with 0.2 rate; and a final Dense layer with 1 unit and sigmoid activation.",
+    "raw_response": "The neural network model defined in cell 10 of the notebook has the following layer-by-layer structure:\n\n1. **Dense Layer**: 60 units, ReLU activation, input shape of (60,)\n2. **Dropout Layer**: 20% dropout rate\n3. **Dense Layer**: 30 units, ReLU activation\n4. **Dropout Layer**: 20% dropout rate\n5. **Dense Layer**: 1 unit, Sigmoid activation",
+    "raw_correct": true,
+    "preprocessed_response": "The neural network model defined in cell 10 has the following layer-by-layer structure:\n\n1. **Dense Layer**: 60 units, ReLU activation, input shape of (60,)\n2. **Dropout Layer**: 20% dropout rate\n3. **Dense Layer**: 30 units, ReLU activation\n4. **Dropout Layer**: 20% dropout rate\n5. **Dense Layer**: 1 unit, Sigmoid activation",
+    "preprocessed_correct": true
+  },
+  {
+    "id": 7,
+    "question": "What is the binary crossentropy loss and accuracy of the model on the test dataset evaluated in cell 12 of the Dropout notebook?",
+    "expected": "Loss is approximately 0.3114, and Accuracy is approximately 0.8571 (85.71%)",
+    "raw_response": "The binary crossentropy loss of the model on the test dataset is approximately 0.3114, and the accuracy is approximately 0.8571.",
+    "raw_correct": true,
+    "preprocessed_response": "The binary crossentropy loss of the model on the test dataset is 0.3114, and the accuracy is 0.8571.",
+    "preprocessed_correct": true
+  },
+  {
+    "id": 8,
+    "question": "In cell 13 of the Dropout notebook, what is the precision and recall reported for the True class, and what are the confusion matrix values?",
+    "expected": "For class True (1): Precision is 0.80 and Recall is 0.80. The confusion matrix is [[24, 3], [3, 12]].",
+    "raw_response": "In cell 13 of the notebook, the precision and recall reported for the True class are both 0.80. The confusion matrix values are:\n\n```\n[[24  3]\n [ 3 12]]\n```",
+    "raw_correct": true,
+    "preprocessed_response": "In cell 13, the precision for the True class is 0.80, and the recall for the True class is 0.80. The confusion matrix values are:\n\n- True Negative (TN): 24\n- False Positive (FP): 3\n- False Negative (FN): 3\n- True Positive (TP): 12\n\nThe confusion matrix is represented as:\n```\n[[24  3]\n [ 3 12]]\n```",
+    "preprocessed_correct": true
+  },
+  {
+    "id": 9,
+    "question": "What cost value and final weights/bias are returned after running batch gradient descent in cell 20 of the gd_vs_sdg notebook?",
+    "expected": "Weights: [0.70712464, 0.67456527], Bias: -0.23034857, Cost: 0.00686419",
+    "raw_response": "The batch gradient descent in cell 20 returns the following values:\n\n- Final weights: `array([0.70712464, 0.67456527])`\n- Final bias: `-0.23034857438407427`\n- Cost value: `0.0068641890429808105`",
+    "raw_correct": true,
+    "preprocessed_response": "After running batch gradient descent, the final weights, bias, and cost value returned are:\n\n- Weights: \\([0.70712464, 0.67456527]\\)\n- Bias: \\(-0.23034857438407427\\)\n- Cost: \\(0.0068641890429808105\\)",
+    "preprocessed_correct": true
+  },
+  {
+    "id": 10,
+    "question": "What cost value and final weights/bias are returned after running stochastic gradient descent in cell 25 of the gd_vs_sdg notebook?",
+    "expected": "Weights: [0.70916093, 0.67665638], Bias: -0.23072748, Cost: 0.00240134",
+    "raw_response": "After running stochastic gradient descent in cell 25, the final weights, bias, and cost value returned are:\n\n- Weights: `array([0.70916093, 0.67665638])`\n- Bias: `-0.23072748814006863`\n- Cost: `0.00240133814628294`",
+    "raw_correct": true,
+    "preprocessed_response": "After running stochastic gradient descent in cell 25, the final weights, bias, and cost value are:\n\n- Weights: `array([0.70916093, 0.67665638])`\n- Bias: `np.float64(-0.23072748814006863)`\n- Cost: `np.float64(0.00240133814628294)`",
+    "preprocessed_correct": true
+  },
+  {
+    "id": 11,
+    "question": "What is the final value of variable 'y' in the notebook? Your answer must consist of ONLY the final numerical value. Do not explain.",
+    "expected": "20",
+    "raw_response": "15",
+    "raw_correct": false,
+    "preprocessed_response": "20",
+    "preprocessed_correct": true
+  },
+  {
+    "id": 12,
+    "question": "What is the final value of variable 'row_count' in the notebook? Your answer must consist of ONLY the final numerical value. Do not explain.",
+    "expected": "3",
+    "raw_response": "3",
+    "raw_correct": true,
+    "preprocessed_response": "3",
+    "preprocessed_correct": true
+  },
+  {
+    "id": 13,
+    "question": "Is variable 'ghost_factor' defined in any cell of the notebook? What is its status and will executing the final cell result in a NameError in the active session?",
+    "expected": "No, 'ghost_factor' is not defined in any cell. However, its status is 'ghost' (referenced but defining cell is missing). It exists in the active kernel state, so executing the final cell will not throw a NameError.",
+    "raw_response": "The variable `ghost_factor` is not defined in any cell of the notebook. The context mentions that the definition cell for `ghost_factor` (execution count 7) has been deleted. Therefore, executing the final cell, which attempts to use `ghost_factor`, will result in a `NameError` in the active session because `ghost_factor` is not defined anywhere in the notebook.",
+    "raw_correct": true,
+    "preprocessed_response": "The variable `ghost_factor` is not defined in any cell of the notebook. Its status is marked as \"ghost\" with low confidence, indicating that it is referenced in the notebook (specifically in execution cell 8) but no defining cell is found prior to its use. Executing the final cell will result in a `NameError` in the active session because `ghost_factor` is not defined anywhere in the notebook.",
+    "preprocessed_correct": true
+  }
+]

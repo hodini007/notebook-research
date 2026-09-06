@@ -1,0 +1,80 @@
+[
+  {
+    "id": 1,
+    "notebook_path": "/home/ryn/Desktop/codes/ml_notebook/titanic.ipynb",
+    "question": "Which machine learning classifier algorithms are imported in cell 2 of the Titanic notebook?",
+    "expected_answer": "RandomForestClassifier, GradientBoostingClassifier, VotingClassifier, LogisticRegression"
+  },
+  {
+    "id": 2,
+    "notebook_path": "/home/ryn/Desktop/codes/ml_notebook/titanic.ipynb",
+    "question": "What feature engineering or data preprocessing operations are performed in cell 4 of the Titanic notebook?",
+    "expected_answer": "Fills missing Age and Fare values with their respective medians, fills missing Embarked values with 'S', calculates FamilySize (SibSp + Parch + 1), creates IsAlone (1 if FamilySize is 1, else 0), extracts Title from Name using a regex, and groups rare titles into 'Rare', 'Miss', or 'Mrs'."
+  },
+  {
+    "id": 3,
+    "notebook_path": "/home/ryn/Desktop/codes/ml_notebook/titanic.ipynb",
+    "question": "What list of features is selected for modeling in cell 6 of the Titanic notebook?",
+    "expected_answer": "['Pclass', 'Sex', 'Age', 'Fare', 'Embarked', 'Title', 'FamilySize', 'IsAlone']"
+  },
+  {
+    "id": 4,
+    "notebook_path": "/home/ryn/Desktop/codes/ml_notebook/titanic.ipynb",
+    "question": "What is the cross-validation Ensemble Accuracy and Consistency (Standard Deviation) reported in cell 82 of the Titanic notebook?",
+    "expected_answer": "Ensemble Accuracy: 83.16%, Consistency (Std Dev): 0.0189"
+  },
+  {
+    "id": 5,
+    "notebook_path": "/home/ryn/Desktop/codes/ml_notebook/titanic.ipynb",
+    "question": "What traceback or error output is visible in the unexecuted PyCaret cell at the end of the Titanic notebook?",
+    "expected_answer": "ModuleNotFoundError: No module named 'pycaret'"
+  },
+  {
+    "id": 6,
+    "notebook_path": "/home/ryn/Desktop/codes/ml_notebook/dropout.ipynb",
+    "question": "What is the exact layer-by-layer structure of the neural network model defined in cell 10 of the Dropout notebook?",
+    "expected_answer": "A keras.Sequential model containing: a Dense layer with 60 units, relu activation, and input shape of (60,); a Dropout layer with 0.2 rate; a Dense layer with 30 units and relu activation; another Dropout layer with 0.2 rate; and a final Dense layer with 1 unit and sigmoid activation."
+  },
+  {
+    "id": 7,
+    "notebook_path": "/home/ryn/Desktop/codes/ml_notebook/dropout.ipynb",
+    "question": "What is the binary crossentropy loss and accuracy of the model on the test dataset evaluated in cell 12 of the Dropout notebook?",
+    "expected_answer": "Loss is approximately 0.3114, and Accuracy is approximately 0.8571 (85.71%)"
+  },
+  {
+    "id": 8,
+    "notebook_path": "/home/ryn/Desktop/codes/ml_notebook/dropout.ipynb",
+    "question": "In cell 13 of the Dropout notebook, what is the precision and recall reported for the True class, and what are the confusion matrix values?",
+    "expected_answer": "For class True (1): Precision is 0.80 and Recall is 0.80. The confusion matrix is [[24, 3], [3, 12]]."
+  },
+  {
+    "id": 9,
+    "notebook_path": "/home/ryn/Desktop/codes/ml_notebook/gd_vs_sdg.ipynb",
+    "question": "What cost value and final weights/bias are returned after running batch gradient descent in cell 20 of the gd_vs_sdg notebook?",
+    "expected_answer": "Weights: [0.70712464, 0.67456527], Bias: -0.23034857, Cost: 0.00686419"
+  },
+  {
+    "id": 10,
+    "notebook_path": "/home/ryn/Desktop/codes/ml_notebook/gd_vs_sdg.ipynb",
+    "question": "What cost value and final weights/bias are returned after running stochastic gradient descent in cell 25 of the gd_vs_sdg notebook?",
+    "expected_answer": "Weights: [0.70916093, 0.67665638], Bias: -0.23072748, Cost: 0.00240134"
+  },
+  {
+    "id": 11,
+    "notebook_path": "/home/ryn/Documents/research papaer/Jupyter_research/tests/test_hard.ipynb",
+    "question": "What is the final value of variable 'y' in the notebook? Your answer must consist of ONLY the final numerical value. Do not explain.",
+    "expected_answer": "20"
+  },
+  {
+    "id": 12,
+    "notebook_path": "/home/ryn/Documents/research papaer/Jupyter_research/tests/test_hard.ipynb",
+    "question": "What is the final value of variable 'row_count' in the notebook? Your answer must consist of ONLY the final numerical value. Do not explain.",
+    "expected_answer": "3"
+  },
+  {
+    "id": 13,
+    "notebook_path": "/home/ryn/Documents/research papaer/Jupyter_research/tests/test_hard.ipynb",
+    "question": "Is variable 'ghost_factor' defined in any cell of the notebook? What is its status and will executing the final cell result in a NameError in the active session?",
+    "expected_answer": "No, 'ghost_factor' is not defined in any cell. However, its status is 'ghost' (referenced but defining cell is missing). It exists in the active kernel state, so executing the final cell will not throw a NameError."
+  }
+]

@@ -1,0 +1,31 @@
+# Secrets — never commit
+.env
+*.key
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+.venv312/
+*.egg-info/
+
+# Large, re-downloadable third-party data (JunoBench notebooks are fetched
+# on demand by tests/run_real_state_groundtruth.py and friends from
+# Hugging Face; do not commit the cache)
+tests/junobench_downloads/
+
+# LaTeX build artifacts (main.pdf is committed deliberately; the rest are
+# regenerable via `latexmk -pdf -interaction=nonstopmode main.tex`)
+paper/*.aux
+paper/*.log
+paper/*.fls
+paper/*.fdb_latexmk
+paper/*.out
+paper/*.bbl
+paper/*.blg
+paper/*.synctex.gz
+
+# OS/editor cruft
+.DS_Store
+*.swp

@@ -1,0 +1,137 @@
+[
+  {
+    "filename": "tensorflow_1.ipynb",
+    "complexity": "medium",
+    "num_cells": 27,
+    "num_variables": 30,
+    "raw_tokens": 1302085,
+    "preprocessed_tokens": 3709,
+    "savings_pct": 99.71514916460907
+  },
+  {
+    "filename": "NBspecific_4.ipynb",
+    "complexity": "complex",
+    "num_cells": 52,
+    "num_variables": 56,
+    "raw_tokens": 198101,
+    "preprocessed_tokens": 12093,
+    "savings_pct": 93.89553813458791
+  },
+  {
+    "filename": "NBspecific_12.ipynb",
+    "complexity": "complex",
+    "num_cells": 11,
+    "num_variables": 16,
+    "raw_tokens": 5410,
+    "preprocessed_tokens": 3033,
+    "savings_pct": 43.93715341959334
+  },
+  {
+    "filename": "tensorflow_8.ipynb",
+    "complexity": "complex",
+    "num_cells": 44,
+    "num_variables": 59,
+    "raw_tokens": 81998,
+    "preprocessed_tokens": 10450,
+    "savings_pct": 87.25578672650552
+  },
+  {
+    "filename": "numpy_3.ipynb",
+    "complexity": "complex",
+    "num_cells": 45,
+    "num_variables": 10,
+    "raw_tokens": 785146,
+    "preprocessed_tokens": 412942,
+    "savings_pct": 47.40570543567693
+  },
+  {
+    "filename": "numpy_13.ipynb",
+    "complexity": "complex",
+    "num_cells": 74,
+    "num_variables": 78,
+    "raw_tokens": 860539,
+    "preprocessed_tokens": 18184,
+    "savings_pct": 97.88690576487527
+  },
+  {
+    "filename": "numpy_10.ipynb",
+    "complexity": "complex",
+    "num_cells": 33,
+    "num_variables": 58,
+    "raw_tokens": 240370,
+    "preprocessed_tokens": 10037,
+    "savings_pct": 95.82435412073053
+  },
+  {
+    "filename": "NBspecific_7.ipynb",
+    "complexity": "complex",
+    "num_cells": 52,
+    "num_variables": 14,
+    "raw_tokens": 48792,
+    "preprocessed_tokens": 6057,
+    "savings_pct": 87.58607968519429
+  },
+  {
+    "filename": "NBspecific_3.ipynb",
+    "complexity": "complex",
+    "num_cells": 13,
+    "num_variables": 35,
+    "raw_tokens": 67727,
+    "preprocessed_tokens": 7158,
+    "savings_pct": 89.43109838026193
+  },
+  {
+    "filename": "tensorflow_14.ipynb",
+    "complexity": "complex",
+    "num_cells": 5,
+    "num_variables": 29,
+    "raw_tokens": 4625,
+    "preprocessed_tokens": 3282,
+    "savings_pct": 29.037837837837838
+  },
+  {
+    "filename": "sklearn_15.ipynb",
+    "complexity": "complex",
+    "num_cells": 50,
+    "num_variables": 15,
+    "raw_tokens": 14219,
+    "preprocessed_tokens": 6022,
+    "savings_pct": 57.64821717420353
+  },
+  {
+    "filename": "NBspecific_2.ipynb",
+    "complexity": "complex",
+    "num_cells": 35,
+    "num_variables": 36,
+    "raw_tokens": 107326,
+    "preprocessed_tokens": 6782,
+    "savings_pct": 93.6809347222481
+  },
+  {
+    "filename": "sklearn_6.ipynb",
+    "complexity": "complex",
+    "num_cells": 58,
+    "num_variables": 45,
+    "raw_tokens": 237277,
+    "preprocessed_tokens": 12805,
+    "savings_pct": 94.60335388596451
+  },
+  {
+    "filename": "pandas_7.ipynb",
+    "complexity": "complex",
+    "num_cells": 45,
+    "num_variables": 24,
+    "raw_tokens": 78891,
+    "preprocessed_tokens": 10882,
+    "savings_pct": 86.20628462055241
+  },
+  {
+    "filename": "NBspecific_13.ipynb",
+    "complexity": "complex",
+    "num_cells": 43,
+    "num_variables": 16,
+    "raw_tokens": 54475,
+    "preprocessed_tokens": 3886,
+    "savings_pct": 92.86645250114731
+  }
+]

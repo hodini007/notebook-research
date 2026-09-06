@@ -1,0 +1,39 @@
+# Core preprocessor (Stage 1) and shared utilities
+PyYAML>=6.0
+tiktoken>=0.7
+
+# LLM-backed evaluation scripts (tests/run_*.py)
+openai>=1.0
+anthropic>=0.30
+python-dotenv>=1.0
+
+# Data / benchmark plumbing
+numpy>=1.26
+pandas>=2.0
+datasets>=2.19
+huggingface_hub>=0.23
+
+# Figures (paper/figures/make_figures.py)
+matplotlib>=3.8
+
+# Optional: only needed to reproduce the widened real-notebook ground-truth
+# set (tests/run_real_state_groundtruth.py) for torch/torchvision notebooks.
+# Install CPU wheels from PyTorch's own index if the default PyPI index
+# stalls on the large CUDA build:
+#   pip install torch torchvision --index-url https://download.pytorch.org/whl/cpu
+# torch>=2.9
+# torchvision>=0.24
+#
+# tensorflow-backed JunoBench notebooks (tensorflow_*.ipynb) cannot be
+# executed on Python 3.14 — no tensorflow wheel is published for that
+# interpreter. This project uses a SEPARATE Python 3.12 virtual environment
+# for tensorflow-dependent ground-truth extraction (see .venv312/ — created
+# via `python3.12 -m venv .venv312`, then `pip install tensorflow torch
+# torchvision numpy pandas scikit-learn scipy matplotlib seaborn statsmodels
+# lightgbm pyyaml tiktoken python-dotenv openai huggingface_hub datasets`,
+# with torch/torchvision from https://download.pytorch.org/whl/cpu). Run
+# tests/run_real_state_groundtruth.py and tests/run_real_state_eval.py from
+# inside that venv to include tensorflow-backed notebooks; one notebook
+# (tensorflow_15.ipynb) remains flaky due to a large mid-execution network
+# download racing a per-cell timeout, not a missing-dependency issue.
+# tensorflow>=2.20  # only in .venv312, not the default Python 3.14 env
