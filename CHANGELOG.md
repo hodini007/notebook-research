@@ -1026,3 +1026,510 @@ Recompiled after each fix; final state builds clean at 12 pages, no
 undefined references or citations.
 
 **Files touched:** `paper/main.tex`, `paper/main.pdf` (recompiled).
+
+## 2026-09-06 (cont.): Created `code/` — the curated package for the upcoming GitHub upload
+
+User asked for a new `code/` folder containing the files needed for the
+new submission-specific GitHub repository, plus a README with the paper's
+Research Questions and a requirements.txt.
+
+**Curated, not dumped wholesale.** Checked directory sizes first
+(`du -sh */`) before copying anything: `tests/` is 136MB total, almost
+entirely (`135MB`) the `junobench_downloads/` cache of raw notebook data
+fetched on demand from Hugging Face -- excluded from `code/` (re-fetchable,
+too large for a plain git repo, and already publicly hosted at its source).
+Also excluded: all `__pycache__/` directories, `.env`, the two Python
+virtual environments (`.venv`, `.venv312`), `docs/historical/` (three
+explicitly-superseded, never-implemented architecture docs per this
+project's own `AGENTS.md`), `AGENTS.md` itself (meta-instructions for the
+AI agent working on this project, not research content), `papers/` (15MB
+of downloaded third-party reference PDFs, not this project's own output),
+and `paper/draft.md` (the pre-LaTeX markdown source, superseded now that
+`paper/main.tex` is confirmed as the sole canonical manuscript).
+
+**Included:** all of `src/` (8 Python files, the preprocessor + state
+extractor + sandbox + optional Tier-3 agent layer), all of `tests/` except
+the excluded cache/bytecode (24 scripts + unit tests + the small,
+already-measured JSON result artifacts: ground truth, raw LLM answers,
+evaluation outputs -- verified none contain API keys via grep before
+copying), all 39 files in `reports/` (every measured report cited in the
+manuscript), `paper/main.tex` + `paper/main.pdf` + the figure-generation
+script and rendered figures, `docs/GUIDE.md`, and the three project-level
+docs (`problem.md`, `gaps_analysis.md`, `CHANGELOG.md`).
+
+**Verified before delivering, not assumed:**
+- Grepped the entire `code/` tree for API-key-shaped strings
+  (`sk-...`, `AIzaSy...`, Zhipu's `hex.random` format) -- none found.
+- Confirmed no `__pycache__` or `.env` made it into the copy.
+- Diffed the copied `requirements.txt` against the original -- identical.
+- Cross-checked every file path referenced in the new README's table and
+  file-tree listing against what was actually copied -- zero missing
+  files.
+- **Ran the unit test suite from inside `code/` itself**
+  (`python3 -m unittest discover -s tests -p "test_*.py"`) rather than
+  just checking file presence -- 13/13 tests pass, confirming the copied
+  package is actually self-contained and functional, not merely
+  file-complete.
+
+**New `code/README.md`** organizes the whole project around five Research
+Questions, each mapped explicitly to a manuscript section, a reproducing
+script, and its result artifact (RQ1: hazard prevalence; RQ2: synthetic
+benchmark accuracy; RQ3: real-notebook transfer/null result; RQ4:
+token-cost/robustness; RQ5: failure modes and limits), plus setup
+instructions, a data-availability paragraph (JunoBench, cited), and a
+citation placeholder.
+
+**New `code/.gitignore`** added to prevent the excluded items
+(`.env`, virtual environments, the JunoBench download cache, LaTeX build
+artifacts) from ever being committed if someone runs the build/eval
+scripts again inside this folder before pushing.
+
+**Files touched:** new `code/` directory (85 files, 1.7MB total) --
+`code/README.md` (new), `code/.gitignore` (new), `code/requirements.txt`
+(copied verbatim), plus copies of `src/`, `tests/` (partial), `reports/`,
+`paper/{main.tex,main.pdf,figures/}`, `docs/GUIDE.md`, `problem.md`,
+`gaps_analysis.md`, `CHANGELOG.md`. Original project files unchanged.
+
+## 2026-09-06 (cont.): Filled in the Data Availability Statement with the real repository URL
+
+User provided the actual GitHub repository: `https://github.com/hodini007/notebook-research`.
+Verified it is live (fetched the page directly; confirmed title "GitHub -
+hodini007/notebook-research" and repo metadata resolve, not just trusting
+the URL string). Updated `paper/main.tex`'s Data Availability Statement to
+cite this URL directly, replacing the `[PLACEHOLDER]` block. Kept an
+explicit `[TODO before final submission]` note recommending a Zenodo
+DOI-archived snapshot in addition to the live repo link, since EMSE's own
+guidance prefers persistent identifiers over plain repository URLs --
+this is real remaining work, not something to silently drop now that a URL
+exists.
+
+Recompiled and visually verified via `document_screenshot` (page 11) --
+renders correctly, URL is a working hyperlink, sentence flow intact.
+
+**Title page and Data Availability Statement are now both fully complete
+except for the Zenodo-archival step**, which requires the author to
+actually push `code/`'s contents to the repository and create a release/
+archive -- not something this session can do without git push access to
+the user's account.
+
+**Files touched:** `paper/main.tex`, `paper/main.pdf` (recompiled, 12 pages).
+
+## 2026-09-06 (cont.): Dropped the Zenodo-archival TODO after confirming it's not mandatory
+
+User asked whether Zenodo DOI-archiving is mandatory for EMSE submission,
+and to drop it if not. Re-checked against EMSE's actual guidelines
+(reviewed earlier this session): a Data Availability Statement is
+**mandatory**, but depositing in a specific archived repository (Zenodo or
+otherwise) is described as authors being "strongly encouraged," not a hard
+submission requirement -- a live, working repository URL that explains how
+to access the data satisfies the actual policy language ("explain how to
+access data supporting the results"). Removed the `[TODO ... Zenodo ...]`
+bracket from `paper/main.tex`'s Data Availability Statement accordingly;
+recompiled and visually verified the paragraph now reads cleanly with no
+leftover placeholder text.
+
+**Verified the user's push, not just trusted the claim**: fetched
+`https://github.com/hodini007/notebook-research` directly and confirmed its
+top-level file/folder listing (`.gitignore`, `CHANGELOG.md`, `README.md`,
+`docs/`, `gaps_analysis.md`, `paper/`, `problem.md`, `reports/`,
+`requirements.txt`, `src/`, `tests/`) and displayed README content match
+exactly what was prepared in the local `code/` folder.
+
+**Manuscript is now fully complete with no remaining placeholders**: title
+page (name, affiliation, email), Data Availability Statement (real,
+verified-live URL), Competing Interests, Funding, Author Contributions,
+Ethical Approval, Threats to Validity, and a full author-year bibliography
+with real, verified author names. Compiles clean at 12 pages.
+
+**Files touched:** `paper/main.tex`, `paper/main.pdf` (recompiled).
+
+## 2026-09-06 (cont.): Final clean-build verification of `paper/main.pdf`
+
+User asked directly whether `main.pdf` is ready. Did a full clean rebuild
+(`latexmk -C` then fresh `latexmk -pdf`) rather than trusting the
+already-compiled artifact, and checked every failure class:
+
+- **0 LaTeX errors**, **0 undefined references/citations** (grepped
+  `main.log` directly).
+- **Found and fixed a real, previously-undetected overfull \hbox**
+  (7.05pt, later 55.3pt after a first attempted fix made it worse, finally
+  resolved to 0pt): two long unbreakable `\texttt{}` tokens
+  (`torch.cuda.is_available()` and `reports/environment_branching_check.md`)
+  in the newly-added environment-branching paragraph were pushing text
+  into the right margin. Fixed with `\allowbreak` insertion points inside
+  both tokens (monospace/typewriter text does not hyphenate by default in
+  LaTeX) rather than just rewording around the problem, since the file
+  path and function name both need to remain literally accurate.
+- Remaining 4 underfull \hboxes are cosmetic line-spacing only (harmless,
+  present in nearly every LaTeX document); not a defect.
+- Re-ran the full citation/bibliography cross-check (`comm -3`) -- still
+  zero mismatches.
+- Grepped for any remaining `PLACEHOLDER`/`TODO` markers in the manuscript
+  -- **zero found** (all were resolved across this session: affiliation,
+  email, Data Availability URL).
+- Re-confirmed abstract word count (225, within EMSE's 150--250 requirement)
+  and stable page count (12 pages).
+
+**Conclusion:** `paper/main.pdf` is genuinely submission-ready as of this
+verification -- clean compile, zero typesetting defects, zero unresolved
+placeholders, all EMSE-required content sections present and complete.
+
+**Files touched:** `paper/main.tex`, `paper/main.pdf` (recompiled).
+
+## 2026-09-06 (cont.): §-symbol → "Sect." conversion; created main.docx; AI-writing-style audit
+
+**§ → Sect. conversion.** User correctly identified that the bare `§`
+glyph (e.g. `§5.3`) is not typical Springer/EMSE house style, which
+prefers "Sect. 5.3." Converted all 12 occurrences (`\S\ref{...}` and two
+hardcoded `\S2`/`\S5.1` forms) to `Sect.~\ref{...}` / `Sect.~2` /
+`Sect.~5.1` via targeted `sed`. Recompiled; visually verified via
+`document_screenshot` that "Sect. 5.2" / "Sect. 5.3" render correctly.
+0 errors, 0 undefined refs, 0 overfull hboxes, still 12 pages.
+
+**Created `paper/main.docx`** (EMSE accepts Word as the default format).
+Used `pandoc` for the LaTeX->docx conversion, but did **not** trust the
+first-pass output blindly -- found and fixed two real defects before
+delivering:
+1. Pandoc silently **dropped every in-text `\citep{}` citation** (the
+   natbib macro isn't resolved without a `.bib` database), while the
+   reference list at the end still rendered fine -- a serious, easy-to-miss
+   defect if not checked. Fixed by pre-processing a docx-specific copy of
+   the source, substituting every `\citep{key}` with its literal rendered
+   citation text (e.g. `(Siddik et al., 2025)`) using the exact same
+   author-year mapping already verified for the bibliography, via a small
+   Python script with an explicit `KeyError` guard against any unmapped
+   key (none triggered).
+2. Figures were embedded as raw **PDF objects** inside the .docx (Word
+   cannot render embedded PDFs as inline images -- would show blank boxes
+   to a reviewer). Fixed by swapping all three `\includegraphics{...pdf}`
+   references to the already-generated `.png` versions before conversion.
+3. The auto-generated "References" heading that LaTeX's `thebibliography`
+   environment produces silently for free was **not replicated by
+   pandoc** -- the bibliography list appeared with no heading above it.
+   Fixed by adding an explicit `\section*{References}` before
+   `\begin{thebibliography}` in the docx-conversion copy.
+
+Verified each fix by extracting plain text from the resulting `.docx`
+(`pandoc main.docx -t plain`) and grepping for the specific defect
+signature, not just re-running the conversion and assuming success.
+Final `.docx` visually confirmed via `document_screenshot`: title page,
+abstract, keywords all render correctly. The intermediate
+`main_for_docx.tex` (the citation/figure-substituted copy used only to
+drive the docx conversion) was deleted after use to avoid two
+divergent `.tex` files existing in the repo; the process is documented
+here for reproducibility instead.
+
+**AI-writing-style audit (user-requested).** Ran a quantified manual
+stylistic scan of `main.tex` rather than an impressionistic one -- **did
+not** run an actual AI-detection tool (no GPTZero/Originality.ai/Turnitin
+access exists in this environment; these tools are also independently
+known to have high false-positive/false-negative rates, so their absence
+here is a real capability gap, not a corner cut). Findings, counted
+directly:
+- Dash-based clause connectors (`" --- "` em-dash + `" -- "` en-dash used
+  as parenthetical asides): **36 instances** across ~5,200 words (~1 per
+  145 words) -- a genuinely high density; well above typical human
+  academic-writing baselines and a commonly cited statistical signal for
+  LLM-generated/LLM-heavily-edited prose.
+- "rather than" used as the contrastive connector **21 times**, with very
+  little variation (no "instead of," "as opposed to," "in contrast to"
+  alternation) -- consistent with a single model's narrow default
+  phrasing repeated across a long document.
+- The "load-bearing [evidence/finding]" metaphor reused twice verbatim.
+- Uniformly polished sentence-level prose throughout, with no stylistic
+  "roughness" (fragments, informal asides, register shifts) one would
+  typically expect somewhere across a document assembled over many
+  separate editing sessions by a human author.
+
+**Conclusion communicated to the user**: yes, real, measurable stylistic
+signals consistent with heavy LLM authorship are present -- and this is
+consistent with reality, since an LLM agent did draft and iteratively edit
+the overwhelming majority of this manuscript's prose across this project's
+sessions. Crucially, this is **already honestly disclosed** in the
+manuscript's own Sect. 3.1 LLM-use disclosure, which is the correct
+response to this fact, not something to conceal. Offered (not yet
+executed, pending user decision) a targeted de-AI-ification editing pass
+-- reducing dash density, varying "rather than," de-duplicating the
+repeated metaphor -- as a pure style improvement that would not touch any
+factual content or the disclosure itself.
+
+**Files touched:** `paper/main.tex` (Sect. conversion only), `paper/main.pdf`
+(recompiled), `paper/main.docx` (new).
+
+## 2026-09-06 (cont.): De-AI-ification pass and clearer exposition throughout `main.tex`
+
+User asked for two things together: reduce the AI-writing signals
+identified in the previous audit, and make every technical concept in the
+paper clearly explained rather than assumed. Did a full-document rewrite
+(not a light edit) to accomplish both at once, since clearer exposition
+and less telegraphic/compressed phrasing tend to require touching the
+same sentences.
+
+**Clarity additions** (concrete examples of what changed, not just "made
+it clearer"): the Introduction now walks through a concrete example of a
+user running cells out of order before introducing `execution_count`,
+instead of naming the field with no narrative context; root causes A-J
+each get a full explanatory sentence instead of a single noun phrase;
+ghost variables, phantom variables, MIME bundles, YAML vs.\ JSON, the
+"needle in a haystack" benchmark design, Wilson confidence intervals, and
+the lost-in-the-middle effect are all now defined in plain language at
+their first use rather than assumed as known jargon; the TRUTH/DECOY/NEITHER
+three-way judge is explained before its results are reported, not after.
+
+**De-AI-ification, measured before and after rather than assumed:**
+- Dash-based clause connectors (em-dash ` --- ` + en-dash ` -- ` used as
+  parenthetical asides): reduced from **36** to **1**.
+- The duplicated "load-bearing" metaphor: reduced from 2 to 1 (one
+  instance kept, since the concept itself is legitimate and worth naming
+  once).
+- "rather than" as the default contrastive connector: this initially
+  **increased** to 25 (from a baseline of 21) during the first
+  explanatory-expansion pass, since writing out fuller explanations
+  naturally reached for the same familiar connector -- caught this by
+  re-measuring rather than assuming the rewrite had automatically fixed
+  it, then did a second, targeted pass varying roughly half of all
+  instances with "instead of," "not X but Y," "and not," and sentence
+  restructuring. Final count: **13**, lower than both the original (21)
+  and the first rewrite attempt (25).
+
+**Two new defects introduced by the rewrite and caught before delivery,
+not left in:**
+1. The abstract, while genuinely clearer, ballooned to **378 words**
+   against EMSE's 150-250 word requirement while being rewritten for
+   clarity. Trimmed it down over five successive edits, re-measuring the
+   real word count programmatically each time (a first "looks about
+   right by eye" check was wrong twice), to a final, verified **249
+   words**.
+2. Added `\section*{References}` directly into `main.tex` itself (a
+   holdover from the earlier docx-specific fix) without noticing this
+   duplicates the heading that `\begin{thebibliography}` already
+   auto-generates for the PDF. Caught this by grepping the compiled PDF's
+   extracted text for `^References` and finding it twice in a row before
+   declaring the document done; removed the manual heading from
+   `main.tex` (kept only in the separate, disposable docx-conversion
+   copy, as originally intended).
+3. Found and fixed 8 instances of plain, non-LaTeX double-quote marks
+   (`"..."`) introduced during the rewrite, which pdflatex renders as
+   ugly straight typewriter quotes instead of proper typeset quotation
+   marks; converted all to `` `` '' `` pairs.
+
+**Regenerated `paper/main.docx`** using the same verified process as
+before (citation substitution, PDF-to-PNG figure swap, explicit
+References heading added only in the disposable conversion copy);
+re-verified PNG embedding, citation presence, and single References
+heading in the resulting file, then deleted the intermediate `.tex` copy
+again.
+
+**Final verification, full checklist, not partial**: 0 LaTeX errors, 0
+undefined references/citations, 0 overfull hboxes, single References
+heading, all `\citep{}` keys resolve to exactly one `\bibitem{}` each,
+abstract at 249 words. Page count grew from 12 to **15 pages**, which is
+expected and was not treated as a problem: EMSE places no page limit,
+and the added length is genuine explanatory content, not padding.
+
+**Files touched:** `paper/main.tex` (full-document rewrite), `paper/main.pdf`
+(recompiled, 15 pages), `paper/main.docx` (regenerated).
+
+## 2026-09-09: Implemented high-priority items from the consolidated revision action plan
+
+Implemented all 6 high-priority items from `outputs/revision_action_plan_2026-09-09.md`
+in `paper/main.tex`, each verified against real, already-measured data rather
+than newly invented:
+
+1. **Corpus characteristics paragraph** added at the start of Sect. 5
+   (Results), consolidating the funnel (112 original -> 67 non-monotonic ->
+   62/67 executed usefully -> 52 items / 16 notebooks) that was previously
+   scattered across three subsections, with an explicit forward pointer to
+   the Threats to Validity discussion of what this population does and does
+   not license.
+2. **Judge-audit sampling method stated explicitly in the paper text**:
+   confirmed directly against `reports/judge_validation_report.md`
+   ("Stratified random sample... seed=42") and added this exact detail to
+   Sect. 5.5 (Judge validation), rather than leaving the sampling method
+   ambiguous as it was before.
+3. **New Table 3**: a 16-row per-notebook breakdown (item count, value
+   divergence vs. existence divergence) built by directly querying
+   `tests/real_state_groundtruth.json` in Python and cross-checked against
+   the paper's existing 52-item/16-notebook headline claim (totals matched
+   exactly: 52 items, 16 notebooks, 11 value-divergence + 41
+   existence-divergence). No numbers were invented; this is a new
+   presentation of already-measured data.
+4. **New Table 2**: a 15-row per-model Notebook-NIAH accuracy table,
+   transcribed directly from `reports/model_curve_report.md` (already
+   verified earlier in this project) rather than re-measured, placed
+   immediately after Figure 1 with a cross-reference in the text.
+5. **Single-answer-model (gpt-4o) disclosure strengthened in both Abstract
+   and Conclusion.** The abstract was already at its 250-word ceiling, so
+   this required a net-neutral edit: trimmed six words elsewhere (verified
+   by re-running the same programmatic word-count check as in the earlier
+   abstract-trimming pass, not eyeballing it) to make room for "for gpt-4o,
+   our one answer model on this corpus" without exceeding the limit. Final
+   verified count: 248 words. The Conclusion, which had more room, got a
+   fuller treatment: an explicit new sentence stating the null result is
+   evidence against an accuracy advantage specifically "for gpt-4o on this
+   specific, deliberately hard population," not a general claim, and naming
+   the most direct follow-up (other models, calmer notebook populations) as
+   untested.
+6. **Explicit hazard-scope statement added to Construct Validity**: a new
+   passage in Sect. 6.1 states plainly that Notebook-NIAH tests exactly one
+   of the six state hazards (cause A, non-linear execution) and does not
+   instantiate in-place mutation, ghost variables, re-execution divergence,
+   silenced errors, or environment-dependent branching, and that the
+   "necessary and sufficient" claim is scoped to this one benchmark's one
+   failure mode.
+
+Also implemented, as a byproduct of editing the same blocks: made the two
+main figure captions interpretive (Figure 1 now leads with "Execution-order
+reordering closes the state-tracking gap completely on every model...") --
+this was originally item 8 (medium priority) in the action plan but was
+essentially free to do while already touching those exact blocks for items 4
+and 6.
+
+**Verified, not assumed:** full clean rebuild after each block of edits;
+final state has 0 LaTeX errors, 0 undefined references/citations, 0
+overfull hboxes, a single References heading, and the full
+citation-to-bibliography cross-check (`comm -3`) still shows zero
+mismatches. Visually screenshotted the new Table 2, Table 3, the updated
+Figure 1 caption, and the updated abstract to confirm correct rendering,
+not just a clean compile. Page count grew from 15 to **16 pages**.
+
+Regenerated `paper/main.docx` using the same verified process as the prior
+two regenerations (citation substitution, PDF-to-PNG figure swap, explicit
+References heading in the disposable conversion copy); re-verified PNG
+embedding, citation presence, single References heading, and presence of
+both new tables in the converted output before declaring it done.
+
+**Deferred from the high-priority tier**: item 5's alternative sub-option
+(running an additional answer model on a subset of the real-notebook
+corpus) was not attempted this session -- addressed instead via the
+stronger disclosure language in Abstract/Conclusion (sub-option 5b from
+the action plan), consistent with the plan's own framing that either
+sub-option is acceptable.
+
+**Files touched:** `paper/main.tex`, `paper/main.pdf` (recompiled, 16
+pages), `paper/main.docx` (regenerated).
+
+## 2026-09-09 (cont.): Implemented medium-priority items from the revision action plan
+
+Implemented all remaining items from the medium-priority tier of
+`outputs/revision_action_plan_2026-09-09.md`:
+
+- **Item 8 completed** (Figure 1's caption was already done as a byproduct
+  of the high-priority pass): Figure 2 (token reduction) and Figure 3
+  (real-notebook outcomes) captions rewritten to lead with the
+  interpretive takeaway before the descriptive detail.
+- **Item 7**: new Table 4, a four-row Related Work comparison
+  (CRABS, LongDS-Bench, DSAgentBench, marimo, plus this paper) across
+  task type, live-kernel dependence, whether serialization format is a
+  controlled variable, and headline result. **Caused a real, escalating
+  overfull-hbox problem that required two follow-up fixes, not a single
+  clean insertion**: the first column-width attempt produced a 139pt
+  overflow (unwrapped "Live kernel?" column with long cell contents); a
+  second attempt fixing that introduced a small 10.7pt overflow from the
+  unbreakable word "DSAgentBench" not fitting a narrowed column; a third,
+  final width rebalancing (verified by recompiling after each attempt,
+  not assumed) brought it to 0 overfull hboxes.
+- **Item 9**: split the two densest paragraphs identified in the review.
+  The real-notebook "third finding" paragraph (13->41->52-item correction
+  history) is now four short, bolded-lead-in paragraphs (Initial pilot /
+  Judge bug and bias / Post-fix result / Expanded corpus confirmation).
+  The long Construct Validity paragraph covering both the
+  `execution_count`-sort issue and its own preceding benchmark-controls
+  discussion is now split into three paragraphs at natural topic
+  boundaries.
+- **Item 10**: added explicit scope-bounding sentences to both "Honest
+  negatives" (structure is not a universal win; the method's strength is
+  bloated, scrambled notebooks, not lean already-ordered ones) and the
+  marimo paragraph in Related Work (the experiment tested reach only, not
+  comparative accuracy).
+- **Item 11**: added a practical, three-point "what to do with this"
+  paragraph to the Conclusion for a reader building a notebook agent:
+  when to deploy, when not to expect an accuracy win, and how to
+  interpret the `execution_order_risk` flag.
+- **Item 12**: standardized the two "our pipeline" occurrences to
+  "JupPreprocessor" for terminology consistency with the rest of the
+  paper.
+
+**Verified, not assumed**, after settling the table-width issue: full
+clean rebuild shows 0 LaTeX errors, 0 undefined references/citations, 0
+overfull hboxes, a single References heading, the citation-to-bibliography
+cross-check still clean, and abstract word count unchanged at 248 (none of
+these edits touched the abstract). Visually screenshotted the new Table 4
+to confirm correct, readable rendering after the width fixes. Page count
+grew from 16 to **17 pages**.
+
+Regenerated `paper/main.docx` using the same verified three-step process
+(citation substitution -- now 23 occurrences due to the new comparison
+table's additional `\citep{}` uses, all resolving correctly against the
+existing citation map with no unmapped-key errors; PDF-to-PNG figure
+swap; explicit References heading in the disposable conversion copy);
+re-verified PNG embedding, citation presence, and single References
+heading in the output.
+
+**Remaining from the full action plan**: only the lower-priority tier
+(formal effect-size statistic, earlier illustrative example of the
+`execution_count`-sort bug, defensive ragged-right bibliography
+formatting) is now outstanding.
+
+**Files touched:** `paper/main.tex`, `paper/main.pdf` (recompiled, 17
+pages), `paper/main.docx` (regenerated).
+
+## 2026-09-09 (cont.): Implemented lower-priority items — completes the full revision action plan
+
+Implemented the final 3 items from `outputs/revision_action_plan_2026-09-09.md`:
+
+- **Item 13 (formal effect-size measure).** Computed this correctly as a
+  **paired** comparison, not an independent-samples one: the same 52 items
+  are scored under all three conditions, so a naive independent-proportions
+  risk-difference CI would have been statistically wrong for this design.
+  Wrote a Python script against the actual underlying data
+  (`tests/real_state_groundtruth.json` cross-referenced with
+  `tests/real_state_eval_raw_answers.json`, treating any item missing an
+  answer record for a condition as OVERFLOW/not-TRUTH, consistent with the
+  paper's own existing overall-TRUTH definition) to build the McNemar-style
+  discordant-pair counts. Sanity-checked the reconstruction against the
+  already-published overall-TRUTH counts (12/52, 14/52, 14/52) before
+  trusting the result -- they matched exactly. Real, computed result:
+  \texttt{ours} vs.\ \texttt{raw} = +3.8 percentage points (95\% CI
+  [-8.0, +15.7]); \texttt{ours} vs.\ \texttt{plain\_strip} = 0.0 percentage
+  points (95\% CI [-9.2, +9.2]). Both intervals contain zero, consistent
+  with (not overturning) the paper's existing conclusion -- added to
+  Internal Validity as a more direct statistical statement of the same
+  null result, not a new finding.
+- **Item 14 (earlier illustrative example).** Added a short paragraph to
+  the end of Sect. 3 (JupPreprocessor) describing the `execution_count`-sort
+  limitation and the `numpy_1.ipynb` case in brief, with an explicit
+  forward pointer to the full worked example and quantification in Threats
+  to Validity, rather than leaving the reader's first encounter with
+  execution-order reconstruction to imply it is a clean, unqualified
+  solution.
+- **Item 15 (defensive ragged-right bibliography).** Added `\raggedright`
+  inside the `thebibliography` environment. **Verified this actually fixes
+  the underlying problem, not just applied it speculatively**: re-ran the
+  same `pdftotext` extraction that had earlier revealed the marimo entry
+  reading as "reactivity/. Accessed 6 September 2026. Reactivity." (word
+  torn out of place) -- after the fix, the identical entry now extracts
+  cleanly and in the correct order: "marimo (2026) marimo documentation:
+  Reactivity. [URL]. Accessed 6 September 2026." Confirmed the fix works
+  by reproducing the original failure mode's exact test, not by assuming
+  a plausible-sounding change would help.
+
+**Verified, not assumed:** full clean rebuild — 0 LaTeX errors, 0
+undefined references/citations, 0 overfull hboxes, single References
+heading, citation cross-check still clean. Visually screenshotted the new
+JupPreprocessor-section paragraph to confirm placement and rendering.
+Page count grew from 17 to **18 pages**.
+
+Regenerated `paper/main.docx` with the same verified three-step process
+(citation substitution, PDF-to-PNG figure swap, References heading +
+`\raggedright` both applied in the disposable conversion copy); re-verified
+PNG embedding, citation presence, and single References heading.
+
+**This completes the full consolidated revision action plan**: all 15
+items across all three priority tiers (high/medium/low) from
+`outputs/revision_action_plan_2026-09-09.md` are now implemented and
+verified. The manuscript stands at 18 pages, `paper/main.tex` /
+`paper/main.pdf` / `paper/main.docx` all in sync.
+
+**Files touched:** `paper/main.tex`, `paper/main.pdf` (recompiled, 18
+pages), `paper/main.docx` (regenerated).
