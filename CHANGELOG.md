@@ -1533,3 +1533,64 @@ verified. The manuscript stands at 18 pages, `paper/main.tex` /
 
 **Files touched:** `paper/main.tex`, `paper/main.pdf` (recompiled, 18
 pages), `paper/main.docx` (regenerated).
+
+---
+
+## 2026-09-11: EMSE submission completed
+
+The manuscript "The Notebook You Read Is Not the Notebook That Ran:
+Execution-Order Reconstruction for LLM Understanding of Jupyter Notebooks"
+was submitted to Empirical Software Engineering (Springer) via Editorial
+Manager. Preparation for this final step, all done and verified this
+session:
+
+- Confirmed the exact submission portal
+  (`https://www.editorialmanager.com/emse/mainpage.html`) and article type
+  (`Research Papers`, not a special issue).
+- Wrote `paper/cover_letter.md`, pasted directly into the portal's cover
+  letter field.
+- Discovered, via a screenshot of the actual "Attach Files" step, that
+  Editorial Manager requires a **separate Title Page file** ("Title Page
+  containing ALL Author Contact Info") distinct from the Manuscript file.
+  Verified EMSE uses single-blind review (not double-blind, so the
+  manuscript body needed no anonymizing), pulled the exact required
+  Title Page content list from EMSE's own guidelines, and built
+  `paper/title_page.tex`/`paper/title_page.pdf` reusing the
+  already-verified abstract and Statements/Declarations text from
+  `main.tex` rather than drafting new content. Compiled and screenshotted:
+  2 pages, 0 errors, all required fields present.
+- Discovered EMSE explicitly prohibits subfolders in LaTeX submissions
+  (the canonical `main.tex` references figures via a `figures/` subfolder
+  path). Built `paper/submission_flat/` with the folder prefix stripped
+  from all three `\includegraphics` calls and the 3 figure PDFs copied
+  flat alongside `main.tex`. Verified via independent recompile + a
+  `pdftotext` diff against the canonical PDF: byte-for-byte identical
+  rendered text content, only the figure-lookup mechanism changed.
+- Verified `paper/main.docx` (the alternative single-file submission
+  path) by actually rendering it to PDF and screenshotting it, not just
+  trusting `pandoc -t plain` output (which had misleadingly suggested the
+  title block was missing — a false alarm from that specific extraction
+  command, ruled out by visual inspection).
+- Answered the portal's substantive declaration questions directly from
+  verified project history rather than boilerplate: confirmed this is a
+  genuine "journal first" submission (no prior publication, preprint, or
+  conference version of any part of this work exists), described the five
+  genuinely new contributions within the portal's 2000-character limit,
+  and explicitly distinguished "no author self-reuse" from "two
+  third-party datasets (JunoBench, Themisto) used and cited as external
+  prior work" for the reuse-disclosure question.
+- Answered the data-availability classification question ("associated
+  data in a data repository") and the special-issue question ("No")
+  consistently with the manuscript's own Data Availability Statement and
+  actual submission track.
+
+**Status: submitted.** Next steps are now editorial (assignment to an
+action editor, reviewer invitations) and outside this project's direct
+control. Both the working repo (`Jupyter_research`) and the submission
+repo (`notebook-research`) are up to date with everything referenced in
+this submission as of this entry; commits are local, pushed manually by
+the author per established workflow.
+
+**Files touched:** `paper/title_page.tex`, `paper/title_page.pdf` (new),
+`paper/submission_flat/` (new: `main.tex`, `main.pdf`, 3 figure PDFs),
+`paper/cover_letter.md` (already existed, used as-is).
