@@ -96,7 +96,33 @@ average: \textbf{59.8\% of these notebooks are saved out of order, 89.3\%
 show gaps consistent with cells being re-run or deleted, and 92.0\% carry
 at least one of these warning signs} (Sect.~\ref{sec:scan}).
 
-This paper makes four contributions:
+We organize our empirical investigation around five research questions,
+each answered in a specific part of the paper rather than left implicit:
+\begin{itemize}
+  \item \textbf{RQ1.} How prevalent are non-linear execution and other
+        state hazards in real, crashed machine-learning notebooks, the
+        population most likely to be handed to an LLM for debugging?
+        (Sect.~\ref{sec:scan})
+  \item \textbf{RQ2.} Does execution-order reconstruction measurably
+        improve LLM state-tracking accuracy on a fair, context-bounded
+        synthetic benchmark, isolated from mere retrieval-under-noise
+        and from token-count confounds? (Sect.~\ref{sec:niah})
+  \item \textbf{RQ3.} Does this synthetic-benchmark advantage transfer
+        to real, messy notebooks, when measured against executable
+        ground truth rather than assumed correctness?
+        (Sect.~\ref{sec:realnb}--\ref{sec:judgeaudit})
+  \item \textbf{RQ4.} What is the token-cost and robustness profile of
+        the preprocessing pipeline on real notebooks, and does adding
+        state-safety annotations erode the token savings? (Sect.~5.1)
+  \item \textbf{RQ5.} Where does the approach fail or reach its limits,
+        on already-clean data, in the preprocessor's own core
+        execution-order-sort mechanism, and relative to alternative
+        architectures such as reactive notebooks?
+        (Sect.~\ref{sec:honestneg}, Sect.~\ref{sec:threats}, Sect.~7)
+\end{itemize}
+
+Answering these five questions is also how this paper makes its four
+main contributions:
 \begin{enumerate}
   \item \textbf{A three-tier treatment framework.} We separate what a
         preprocessing tool can actually \emph{resolve} on its own from
@@ -639,6 +665,7 @@ prompt could not fit the 126k context cap.}
 \end{figure}
 
 \subsection{Honest negatives}
+\label{sec:honestneg}
 On the Themisto benchmark \citep{grotov2025themisto}, whose notebooks
 were already cleaned of HTML, base64 content, and JSON metadata by its
 own authors, applying our preprocessing actually \emph{reduced}
