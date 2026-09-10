@@ -156,6 +156,13 @@ main contributions:
         state-accuracy measurement of its kind, together with an honest
         account of what still does not work.
 \end{enumerate}
+To our knowledge, this is the first paper to treat notebook serialization
+format itself as a controlled experimental variable, holding the answer
+model and prompt fixed and varying only how the notebook is encoded,
+and to evaluate that variable specifically on crashed, out-of-order
+notebooks rather than the cleaner, curated corpora used elsewhere in this
+literature (Sect.~\ref{sec:relwork} contrasts this directly against the
+closest prior systems).
 
 \section{Root Causes and the Coupling Problem}
 \label{sec:causes}
@@ -652,6 +659,24 @@ answers for future audits
 (\texttt{tests/real\_state\_eval\_raw\_answers.json}). Full detail is
 available in \texttt{reports/judge\_validation\_report.md}.
 
+\textbf{Post-fix confirmation.} A prompt fix is only as trustworthy as the
+next independent check of it, so we repeated this audit on a second,
+non-overlapping sample after applying the fix: 25 further rows, stratified
+by condition, drawn with a different random seed (7) from the corrected-judge
+dataset. Agreement rose from 76\% to 92\% (23 of 25). The two remaining
+disagreements were both the same underlying variable
+(\texttt{pandas\_3.ipynb}'s \texttt{resultados}), where the judge credited a
+fully-populated DataFrame answer as matching a stored decoy candidate that is
+literally an \emph{empty} DataFrame with matching column names but no rows,
+a narrower, DataFrame-specific failure mode distinct from the null-candidate
+bug described above. We report this as a residual limitation rather than a
+clean bill of health: readers should continue to treat the exact
+\textsc{truth}/\textsc{decoy}/\textsc{neither} counts in
+Sect.~\ref{sec:realnb} as approximate, with the qualitative conclusion, no
+detectable accuracy advantage at this scale, being what we actually stand
+behind rather than any single precise tally. Full detail is in
+\texttt{reports/judge\_post\_fix\_validation\_report.md}.
+
 \begin{figure}[t]
 \centering
 \includegraphics[width=.85\linewidth]{figures/fig3_real_state_outcomes.pdf}
@@ -884,6 +909,7 @@ in settings, such as an interactive agent session, where a kernel is
 already attached for some other reason.
 
 \section{Related Work}
+\label{sec:relwork}
 Several notebook agents and stateful runtimes, including DatawiseAgent
 \citep{you2025datawise}, CaveAgent \citep{ran2026caveagent}, DeltaBox
 \citep{dong2026deltabox}, and I-PTC \citep{gonzalez2026}, all assume a
