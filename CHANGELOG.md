@@ -1594,3 +1594,46 @@ the author per established workflow.
 **Files touched:** `paper/title_page.tex`, `paper/title_page.pdf` (new),
 `paper/submission_flat/` (new: `main.tex`, `main.pdf`, 3 figure PDFs),
 `paper/cover_letter.md` (already existed, used as-is).
+
+---
+
+## 2026-09-11 (later): Editorial office desk-reject, root-caused and fixed
+
+The editorial office returned the manuscript before review, citing missing
+table/figure captions (Tables 1, 3, 4; Figs. 1, 2, 3), an unclear location
+for a Table 2 citation, and a missing Clinical Trial Number statement.
+
+Investigated rather than assumed correct or incorrect (this session had
+already found two prior "reviews" making false claims traced to
+extraction artifacts). This time the root cause was real and specific to
+the `.docx` submission path: direct `python-docx` inspection of
+`main.docx` showed pandoc's LaTeX-to-docx conversion correctly applies
+Word's native `Table Caption`/`Image Caption` paragraph styles to all 7
+captions, but drops the actual `Table N:`/`Figure N:` number prefix from
+the caption text itself — even though in-text `\ref{}` cross-references
+in the same document correctly resolve to real numbers. This plausibly
+also explains the "Table 2 location unclear" complaint: with no caption
+containing the literal string "Table 2", an automated compliance checker
+matching in-text citations to captions would find nothing to match.
+
+Fixed at the root, not just patched: added an explicit "Clinical trial
+number: Not applicable." statement to `paper/main.tex`'s Statements and
+Declarations section and to `paper/title_page.tex`'s Declarations
+section. Extended the docx-generation pipeline to prepend the correct
+sequential `Table N:`/`Figure N:` prefix to each of the 7 `\caption{}`
+calls before pandoc conversion, in the document's actual figure/table
+order, rather than hand-patching the generated `.docx` (which would be
+lost on the next regeneration).
+
+**Verified, not assumed:** recompiled `main.tex` (19 pages, 0 errors, 0
+undefined refs, 0 overfull hboxes), recompiled `title_page.tex` (2 pages,
+0 errors), rebuilt `paper/submission_flat/` and reconfirmed byte-for-byte
+identical rendered text content versus the canonical PDF. Regenerated
+`main.docx` and directly inspected its internal XML: all 7 captions now
+carry the correct number prefix; rendered it to PDF via LibreOffice and
+screenshotted a figure-bearing page to visually confirm "Figure 1:" now
+precedes the caption text.
+
+**Files touched:** `paper/main.tex`, `paper/main.pdf`, `paper/main.docx`,
+`paper/title_page.tex`, `paper/title_page.pdf`,
+`paper/submission_flat/main.tex`, `paper/submission_flat/main.pdf`.
